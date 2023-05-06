@@ -85,7 +85,7 @@ const oldObject = function(array) {
 };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log('Hello from the old object function', oldObject(['hi', 'hello', 'are you there?']));
+console.log('Hello from the old object function', oldObject(['hi', 'hello', 'are you there?']));
 
 
 // STEP 9
@@ -107,43 +107,47 @@ const newObject = array => ({
 // Write your solutions on a single line wherever possible.
 
 
-
-let sum = function(a, b, c, d) {
-  return a + b + c + d;
-};
-
-// TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(sum(1, 2, 3, 4));
-
-
-let objectLit = function() {
-  return {
-    key1: 'value1',
-    key2: 'value2',
-    key3: 'value3',
-  };
-};
+let sum = (a, b, c, d) => a + b + c + d;
+// let sum = function(a, b, c, d) {
+//   return a + b + c + d;
+// };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(objectLit());
+console.log(sum(1, 2, 3, 4));
 
 
-let sumAndProduct = function(a, b) {
-  let sum = a + b;
-  let product = a * b;
-  return [sum, product];
-};
+let objectLit = () => ({ key1: 'value1', key2: 'value2', key3: 'value3' });
 
-// TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(sumAndProduct(3, 9));
-
-
-let message = function(name) {
-  return `Hello, ${name}!`;
-};
+// let objectLit = function() {
+//   return {
+//     key1: 'value1',
+//     key2: 'value2',
+//     key3: 'value3',
+//   };
+// };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(message('Allie'));
+console.log(objectLit());
+
+
+let sumAndProduct = (a, b) => [a + b, a * b];
+//  let sumAndProduct = function(a, b) {
+//   let sum = a + b;
+//   let product = a * b;
+//   return [sum, product];
+// };
+
+// TODO: Uncomment the following line of code to see the output in the browser console
+console.log(sumAndProduct(3, 9));
+
+
+let message = name => `Hello, ${name}!`;
+// let message = function(name) {
+//   return `Hello, ${name}!`;
+// };
+
+// TODO: Uncomment the following line of code to see the output in the browser console
+console.log(message('Allie'));
 
 
 let Student = function(name, age, hometown) {
@@ -156,7 +160,7 @@ let joe = new Student('Joe Schmoe', 100, 'Anytown, USA');
 
 // TODO: Uncomment the following line of code to see the output in the browser console
 // Note that the arrow function will cause this code to break!
-// console.log(joe);
+console.log(joe);
 
 // TODO: After viewing the previous console.log(), return the code to a working state.
 
@@ -168,7 +172,7 @@ Student.prototype.greeting = function() {
 
 // TODO: Uncomment the following line of code to see the output in the browser console
 // Note that the arrow function will cause this method to break!
-// console.log(joe.greeting());
+console.log(joe.greeting());
 
 // TODO: After viewing the previous console.log(), return the code to a working state.
 
@@ -179,28 +183,58 @@ Student.courseName = function() {
 };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// console.log(Student.courseName());
+console.log(Student.courseName());
 
 
 
 // STEP 11
+
 // How do arrow functions affect constructor functions?
-Student.prototype.scope = function() {
+
+/*In the given code, there are two methods added to the Student.prototype: scope and scopeArrow. 
+The scope method uses a regular function, while scopeArrow uses an arrow function. Both methods
+ print the value of this when called on a Student object. Let's analyze the behavior of this in these two cases:*/
+
+ Student.prototype.scope = function() {
   console.log(this);
 };
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// joe.scope();
+joe.scope();
 
 Student.prototype.scopeArrow = () => console.log(this);
 
 // TODO: Uncomment the following line of code to see the output in the browser console
-// joe.scopeArrow();
+joe.scopeArrow();
 
 // TODO: Write a COMMENT below to answer the following questions.
+
 // 1. What is "this" when joe.scope() is invoked?
-//
+
+/*When joe.scope() is invoked, this refers to the joe object, which is an instance of the
+Student class. In a regular function, this refers to the object on which the function is called.*/
+
+
 // 2. What is "this" when joe.scopeArrow() is invoked?
-//
+
+/*When joe.scopeArrow() is invoked, this does not refer to the joe object, as you might expect.
+Instead, it refers to the global context (in the browser, it would be the window object).
+This is because arrow functions do not create their own this context. They inherit the this 
+value from the surrounding non-arrow function, which, in this case, is the global context.*/
+
+
 // 3. Explain why "this" is different when an arrow function is used.
-//
+
+/*TThe reason "this" is different when an arrow function is used is because arrow functions behave differently than regular functions.
+Arrow functions do not have their own "this". Instead, they use the "this" from the nearest regular function. If there isn't a regular function nearby, they use the "this" from the most outer area, which is called the global context. In a web browser, the global context is represented by the "window" object.
+In the case of joe.scopeArrow(), there is no nearby regular function, so the arrow function takes the "this" from the global context, which is the "window" object in a browser.
+On the other hand, regular functions have their own "this" that refers to the object the function is called on. In the case of joe.scope(), "this" refers to the joe object because scope is a regular function and is called on the joe object.*/
+
+//Note it is important to note that arrow functions are not suitable for defining methods on objects that
+// rely on the this keyword, as they inherit their this value from the surrounding scope.
+
+
+
+
+
+
